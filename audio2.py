@@ -6,6 +6,9 @@ import base64
 from io import StringIO
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import matplotlib.pyplot as plt
+from scraibe import Scraibe
+
+
 
 # Set page config
 st.set_page_config(
