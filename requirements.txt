@@ -4,4 +4,6 @@ matplotlib
 vaderSentiment
 scraibe
 pip
-PyTorch
+torch
+torchvision
+torchaudio
