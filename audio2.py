@@ -4,7 +4,6 @@ import re
 import os
 import base64
 from io import StringIO
-from scraibe import Scraibe
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import matplotlib.pyplot as plt
 
