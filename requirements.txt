@@ -4,3 +4,4 @@ matplotlib
 vaderSentiment
 scraibe
 pip
+PyTorch
