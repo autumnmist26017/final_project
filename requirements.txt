@@ -3,8 +3,4 @@ pandas
 matplotlib
 vaderSentiment
 scraibe
-pip
-torch
-torchvision
-torchaudio
-ffmpeg
+torch>=2.0
