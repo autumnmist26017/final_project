@@ -8,13 +8,10 @@ from scraibe import Scraibe
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import matplotlib.pyplot as plt
 import warnings
-import imageio_ffmpeg
+from pydub import AudioSegment
 
 # Suppress warnings
 warnings.filterwarnings("ignore")
-
-# Ensure ffmpeg is available
-os.environ["PATH"] += os.pathsep + os.path.dirname(imageio_ffmpeg.get_ffmpeg_exe())
 
 # Set page config
 st.set_page_config(
@@ -110,7 +107,10 @@ if uploaded_file is not None:
     
     try:
         # Show a loading spinner while processing
-        with st.spinner('Transcribing audio... This may take a few minutes...'):
+        with st.spinner('Processing audio... This may take a few minutes...'):
+            # Load the audio file using pydub
+            audio = AudioSegment.from_wav("temp_audio.wav")
+            
             # Load the model
             model = load_model()
             if model is None:
