@@ -9,9 +9,13 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import matplotlib.pyplot as plt
 import warnings
 from pydub import AudioSegment
+import imageio_ffmpeg
 
 # Suppress warnings
 warnings.filterwarnings("ignore")
+
+# Set the ffmpeg path for pydub
+AudioSegment.converter = imageio_ffmpeg.get_ffmpeg_exe()
 
 # Set page config
 st.set_page_config(
