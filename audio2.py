@@ -8,9 +8,13 @@ from scraibe import Scraibe
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import matplotlib.pyplot as plt
 import warnings
+import imageio_ffmpeg
 
 # Suppress warnings
 warnings.filterwarnings("ignore")
+
+# Ensure ffmpeg is available
+os.environ["PATH"] += os.pathsep + os.path.dirname(imageio_ffmpeg.get_ffmpeg_exe())
 
 # Set page config
 st.set_page_config(
@@ -18,6 +22,16 @@ st.set_page_config(
     page_icon="🎙️",
     layout="wide"
 )
+
+# Custom CSS for better styling
+st.markdown("""
+    <style>
+    .main-header {font-size: 24px; color: #1f77b4; margin-bottom: 20px;}
+    .sub-header {font-size: 20px; color: #2c3e50; margin-top: 20px;}
+    .stButton>button {background-color: #4CAF50; color: white; border-radius: 5px;}
+    .stDownloadButton>button {background-color: #4CAF50; color: white; border-radius: 5px;}
+    </style>
+""", unsafe_allow_html=True)
 
 # Title and description
 st.title("🎙️ Audio Transcription & Sentiment Analysis")
