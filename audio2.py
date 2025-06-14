@@ -9,13 +9,9 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import matplotlib.pyplot as plt
 import warnings
 from pydub import AudioSegment
-import imageio_ffmpeg
 
 # Suppress warnings
 warnings.filterwarnings("ignore")
-
-# Set the ffmpeg path for pydub
-AudioSegment.converter = imageio_ffmpeg.get_ffmpeg_exe()
 
 # Set page config
 st.set_page_config(
@@ -112,9 +108,6 @@ if uploaded_file is not None:
     try:
         # Show a loading spinner while processing
         with st.spinner('Processing audio... This may take a few minutes...'):
-            # Load the audio file using pydub
-            audio = AudioSegment.from_wav("temp_audio.wav")
-            
             # Load the model
             model = load_model()
             if model is None:
