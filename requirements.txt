@@ -6,4 +6,3 @@ scraibe
 torch>=2.0
 torchaudio
 pydub
-imageio[ffmpeg]
