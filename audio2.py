@@ -7,6 +7,10 @@ from io import StringIO
 from scraibe import Scraibe
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import matplotlib.pyplot as plt
+import warnings
+
+# Suppress warnings
+warnings.filterwarnings("ignore")
 
 # Set page config
 st.set_page_config(
@@ -14,16 +18,6 @@ st.set_page_config(
     page_icon="🎙️",
     layout="wide"
 )
-
-# Custom CSS for better styling
-st.markdown("""
-    <style>
-    .main-header {font-size: 24px; color: #1f77b4; margin-bottom: 20px;}
-    .sub-header {font-size: 20px; color: #2c3e50; margin-top: 20px;}
-    .stButton>button {background-color: #4CAF50; color: white; border-radius: 5px;}
-    .stDownloadButton>button {background-color: #4CAF50; color: white; border-radius: 5px;}
-    </style>
-""", unsafe_allow_html=True)
 
 # Title and description
 st.title("🎙️ Audio Transcription & Sentiment Analysis")
@@ -133,22 +127,15 @@ if uploaded_file is not None:
             st.subheader("Sentiment Analysis by Speaker")
             st.write("(Score > 0 is positive, < 0 is negative)")
             
-            # Create two columns for the chart and the data
-            col1, col2 = st.columns([2, 1])
-            
-            with col1:
-                # Plot sentiment
-                fig, ax = plt.subplots(figsize=(10, 6))
-                colors = ['g' if x > 0 else 'r' for x in speaker_sentiment.values]
-                speaker_sentiment.plot(kind='barh', color=colors, ax=ax)
-                plt.title('Overall Sentiment by Speaker')
-                plt.xlabel('Average Sentiment Score')
-                plt.axvline(x=0, color='k', linestyle='--')
-                plt.tight_layout()
-                st.pyplot(fig)
-            
-            with col2:
-                st.dataframe(speaker_sentiment, width=300)
+            # Plot sentiment
+            fig, ax = plt.subplots(figsize=(10, 6))
+            colors = ['g' if x > 0 else 'r' for x in speaker_sentiment.values]
+            speaker_sentiment.plot(kind='barh', color=colors, ax=ax)
+            plt.title('Overall Sentiment by Speaker')
+            plt.xlabel('Average Sentiment Score')
+            plt.axvline(x=0, color='k', linestyle='--')
+            plt.tight_layout()
+            st.pyplot(fig)
             
             # Download button
             st.markdown(get_table_download_link(df), unsafe_allow_html=True)
