@@ -5,4 +5,4 @@ vaderSentiment
 scraibe
 torch>=2.0
 torchaudio
-imageio[ffmpeg]
+pydub
