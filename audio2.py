@@ -3,12 +3,9 @@ import pandas as pd
 import re
 import os
 import base64
-from io import StringIO
+from scraibe import Scraibe
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import matplotlib.pyplot as plt
-from scraibe import Scraibe
-
-
 
 # Set page config
 st.set_page_config(
@@ -50,6 +47,16 @@ with st.sidebar:
         index=0,
         help="Select the language of the audio"
     )
+
+@st.cache_resource
+def load_model():
+    """Load the ScrAIbe model."""
+    try:
+        model = Scraibe()
+        return model
+    except Exception as e:
+        st.error(f"Error loading ScrAIbe model: {e}")
+        return None
 
 def parse_transcription_to_df(transcription_string):
     """Parse transcription string into a DataFrame."""
@@ -94,8 +101,13 @@ if uploaded_file is not None:
     try:
         # Show a loading spinner while processing
         with st.spinner('Transcribing audio... This may take a few minutes...'):
+            # Load the model
+            model = load_model()
+            if model is None:
+                st.error("Failed to load the ScrAIbe model. Please try again.")
+                st.stop()
+            
             # Transcribe the audio
-            model = Scraibe()
             transcription = model.autotranscribe(
                 "temp_audio.wav", 
                 language=language, 
@@ -145,3 +157,5 @@ if uploaded_file is not None:
         # Clean up temporary file
         if os.path.exists("temp_audio.wav"):
             os.remove("temp_audio.wav")
+else:
+    st.info("Please upload a WAV file to get started.")
